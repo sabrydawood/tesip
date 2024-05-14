@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Ip Adress</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: black;
+            color: white;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: lightblue;
+            padding: 20px;
+            border-radius: 10px;
+            color: black;
+            width: 500px;
+            font-size: 20px;
+        }
+
+        #ip {
+            margin-left: 10px;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div> Ip Is : </div>
+        <div id="ip"></div>
+    </div>
+    <script>
+        const serverUrl = "https://tesip.onrender.com";
+        window.addEventListener('load', (event) => {
+            fetch(serverUrl)
+                .then(response => response.json())
+                .then(data => {
+                    if (data?.userIp) {
+                        if (data.userIp == '::1') {
+                            document.getElementById('ip').innerText = "localhost";
+                            return
+                        }
+                        document.getElementById('ip').innerText = data.userIp ? data.userIp : 'No Ip Found';
+                    }
+                })
+                .catch(error => console.error(error));
+        });
+    </script>
+</body>
+
+</html>
